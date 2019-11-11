@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import Controls from '../components/controls/Controls';
 import Face from '../components/face/Face';
 import PropTypes from 'prop-types';
+import StartButton from '../components/startButton';
 
 
-const Moods = ({ state, handleSelection }) => {
-
+const Moods = ({ state, handleSelection, handleStart }) => {
+console.log(state)
   const actions = [
     { name: 'DRINK_COFFEE', text: 'Drink Coffee', stateName: 'coffees' },
     { name: 'EAT_SNACK', text: 'Snack', stateName: 'snacks' },
@@ -36,6 +37,8 @@ const Moods = ({ state, handleSelection }) => {
     count: state[action.stateName]
   }));
 
+  if(!state.start) return <StartButton handleStart={handleStart} />;
+
   return (
     <>
       <Controls actions={controlActions} handleSelection={handleSelection}/>
@@ -53,8 +56,10 @@ Moods.propTypes = {
     snacks: PropTypes.number.isRequired,
     naps: PropTypes.number.isRequired,
     studies: PropTypes.number.isRequired,
+    start: PropTypes.bool.isRequired
   }),
-  handleSelection: PropTypes.func.isRequired
+  handleSelection: PropTypes.func.isRequired,
+  handleStart: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -62,13 +67,17 @@ const mapStateToProps = state => ({
     coffees: state.coffees,
     snacks: state.snacks,
     naps: state.naps,
-    studies: state.studies
+    studies: state.studies,
+    start: state.start
   }
 });
 
 const mapDispatchToProps = dispatch => ({
   handleSelection(name) {
     dispatch({ type: name });
+  },
+  handleStart() {
+    dispatch({ type: 'START_GAME' });
   }
 });
 
