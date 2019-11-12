@@ -4,17 +4,16 @@ import Controls from '../components/controls/Controls';
 import Face from '../components/face/Face';
 import PropTypes from 'prop-types';
 import StartButton from '../components/startButton';
+import Counter from '../components/Counter';
 import moodHelperFunc from './moodHelperFunc';
 
 
-const Moods = ({ state, handleSelection, handleStart, handleTimeout }) => {
+const Moods = ({ state, handleSelection, handleStart, handleDecrement, handleTimeout }) => {
 
   const { controlActions, face } = moodHelperFunc(state);
 
-  if(state.start) {
-    setTimeout(()=> {
-      handleTimeout();
-    }, 20000);
+  if(state.count === 0) {
+    handleTimeout();
   }
 
   if(!state.start) return <StartButton handleStart={handleStart} />;
@@ -23,11 +22,10 @@ const Moods = ({ state, handleSelection, handleStart, handleTimeout }) => {
     <>
       <Controls actions={controlActions} handleSelection={handleSelection}/>
       <Face emoji={face} />
+      <Counter count={state.count} handleDecrement={handleDecrement}/>
     </>
   );
 };
-
-
 
 
 Moods.propTypes = {
@@ -36,10 +34,12 @@ Moods.propTypes = {
     snacks: PropTypes.number.isRequired,
     naps: PropTypes.number.isRequired,
     studies: PropTypes.number.isRequired,
-    start: PropTypes.bool.isRequired
+    start: PropTypes.bool.isRequired,
+    count: PropTypes.number.isRequired
   }),
   handleSelection: PropTypes.func.isRequired,
   handleStart: PropTypes.func.isRequired,
+  handleDecrement: PropTypes.func.isRequired,
   handleTimeout: PropTypes.func.isRequired,
 };
 
@@ -49,7 +49,8 @@ const mapStateToProps = ({ moodReducer, roundReducer }) => ({
     snacks: moodReducer.snacks,
     naps: moodReducer.naps,
     studies: moodReducer.studies,
-    start: roundReducer.start
+    start: roundReducer.start,
+    count: roundReducer.count
   }
 });
 
@@ -59,6 +60,9 @@ const mapDispatchToProps = dispatch => ({
   },
   handleStart() {
     dispatch({ type: 'START_GAME' });
+  },
+  handleDecrement() {
+    dispatch({ type: 'DECREMENT' });
   },
   handleTimeout() {
     dispatch({ type: 'TIMEOUT' });
