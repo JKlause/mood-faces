@@ -4,7 +4,7 @@ import Controls from '../components/controls/Controls';
 import Face from '../components/face/Face';
 import PropTypes from 'prop-types';
 import StartButton from '../components/startButton';
-import Counter from '../components/Counter';
+import Counter from '../components/Counter/Counter';
 import moodHelperFunc from './moodHelperFunc';
 
 

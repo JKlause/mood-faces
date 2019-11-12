@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import style from './Counter.css';
 
 const Counter = ({ count, handleDecrement }) => {
   
@@ -11,7 +12,7 @@ const Counter = ({ count, handleDecrement }) => {
   }, [count]);
 
   return (
-    <h2>{count}</h2>
+    <h2 className={style.Counter}>{count}</h2>
   );
 };
 
