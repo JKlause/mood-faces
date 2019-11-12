@@ -1,12 +1,5 @@
-import { createStore, combineReducers } from 'redux';
-import moodReducer from './reducers/moodReducer';
-import roundReducer from './reducers/roundReducer';
-
-
-const reducer = combineReducers({
-  moodReducer,
-  roundReducer
-});
+import { createStore } from 'redux';
+import reducer from './reducers';
 
 const store = createStore(
   reducer,

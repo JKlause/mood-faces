@@ -1,3 +1,4 @@
+import { START_GAME, DECREMENT, RESET } from '../actions/roundActions';
 
 const roundState = {
   start: false,
@@ -6,11 +7,11 @@ const roundState = {
 
 function roundReducer(state = roundState, action) {
   switch(action.type) {
-    case 'START_GAME':
+    case START_GAME:
       return { ...state, start: true };
-    case 'DECREMENT':
+    case DECREMENT:
       return { ...state, count: state.count - 1 };
-    case 'TIMEOUT':
+    case RESET:
       return {
         coffees: 0,
         snacks: 0,

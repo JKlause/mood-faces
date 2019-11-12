@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Controls.css';
 
-const Controls = ({ actions, handleSelection }) => (
+const Controls = ({ actions, handleSelection, handleReset }) => (
   <section className={styles.Controls}>
     {actions.map(({ name, text, count }) => (
       <button key={name} onClick={() => handleSelection(name)}>
         {text || name} {!!count && `- ${count}`}
       </button>
     ))}
+    <button onClick={handleReset}>RESET</button>
   </section>
 );
 
@@ -17,7 +18,8 @@ Controls.propTypes = {
     name: PropTypes.string.isRequired,
     text: PropTypes.string
   })).isRequired,
-  handleSelection: PropTypes.func.isRequired
+  handleSelection: PropTypes.func.isRequired,
+  handleReset: PropTypes.func.isRequired
 };
 
 export default Controls;

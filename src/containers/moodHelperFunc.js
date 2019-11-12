@@ -1,10 +1,11 @@
+import { DRINK_COFFEE, EAT_SNACK, TAKE_NAP, STUDY } from '../actions/moodActions';
 
 function moodHelperFunc(state) {
   const actions = [
-    { name: 'DRINK_COFFEE', text: 'Drink Coffee', stateName: 'coffees' },
-    { name: 'EAT_SNACK', text: 'Snack', stateName: 'snacks' },
-    { name: 'TAKE_NAP', text: 'Nap', stateName: 'naps' },
-    { name: 'STUDY', text: 'Study', stateName: 'studies' },
+    { name: DRINK_COFFEE, text: 'Drink Coffee', stateName: 'coffees' },
+    { name: EAT_SNACK, text: 'Snack', stateName: 'snacks' },
+    { name: TAKE_NAP, text: 'Nap', stateName: 'naps' },
+    { name: STUDY, text: 'Study', stateName: 'studies' },
   ];
   const isTired = state => state.coffees < 1 && state.naps < 1;
   const isHyper = state => state.coffees > 3;

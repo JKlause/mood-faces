@@ -1,14 +1,18 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import moodHelperFunc from './moodHelperFunc';
+import { getCoffees, getSnacks, getNaps, getStudies } from '../selectors/moodSelectors';
+import { sendSelection } from '../actions/moodActions';
+import { startGame, decrementTimer, resetGame } from '../actions/roundActions';
+import { getStart, getCount } from '../selectors/roundSelectors';
 import Controls from '../components/controls/Controls';
 import Face from '../components/face/Face';
-import PropTypes from 'prop-types';
 import StartButton from '../components/startButton';
 import Counter from '../components/Counter/Counter';
-import moodHelperFunc from './moodHelperFunc';
 
 
-const Moods = ({ state, handleSelection, handleStart, handleDecrement, handleTimeout }) => {
+const Moods = ({ state, handleSelection, handleStart, handleDecrement, handleTimeout, handleReset }) => {
 
   const { controlActions, face } = moodHelperFunc(state);
 
@@ -20,7 +24,7 @@ const Moods = ({ state, handleSelection, handleStart, handleDecrement, handleTim
 
   return (
     <>
-      <Controls actions={controlActions} handleSelection={handleSelection}/>
+      <Controls actions={controlActions} handleSelection={handleSelection} handleReset={handleReset}/>
       <Face emoji={face} />
       <Counter count={state.count} handleDecrement={handleDecrement}/>
     </>
@@ -41,31 +45,35 @@ Moods.propTypes = {
   handleStart: PropTypes.func.isRequired,
   handleDecrement: PropTypes.func.isRequired,
   handleTimeout: PropTypes.func.isRequired,
+  handleReset: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ moodReducer, roundReducer }) => ({
+const mapStateToProps = (state) => ({
   state: {
-    coffees: moodReducer.coffees,
-    snacks: moodReducer.snacks,
-    naps: moodReducer.naps,
-    studies: moodReducer.studies,
-    start: roundReducer.start,
-    count: roundReducer.count
+    coffees: getCoffees(state),
+    snacks: getSnacks(state),
+    naps: getNaps(state),
+    studies: getStudies(state),
+    start: getStart(state),
+    count: getCount(state)
   }
 });
 
 const mapDispatchToProps = dispatch => ({
   handleSelection(name) {
-    dispatch({ type: name });
+    dispatch(sendSelection(name));
   },
   handleStart() {
-    dispatch({ type: 'START_GAME' });
+    dispatch(startGame());
   },
   handleDecrement() {
-    dispatch({ type: 'DECREMENT' });
+    dispatch(decrementTimer());
   },
   handleTimeout() {
-    dispatch({ type: 'TIMEOUT' });
+    dispatch(resetGame());
+  },
+  handleReset() {
+    dispatch(resetGame());
   }
 });
 
