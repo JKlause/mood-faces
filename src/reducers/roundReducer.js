@@ -1,4 +1,5 @@
 import { START_GAME, DECREMENT, RESET } from '../actions/roundActions';
+import { SET_STATE_TO_SAVED, SAVE_GAME } from '../actions/savedGameActions';
 
 const roundState = {
   start: false,
@@ -13,12 +14,15 @@ function roundReducer(state = roundState, action) {
       return { ...state, count: state.count - 1 };
     case RESET:
       return {
-        coffees: 0,
-        snacks: 0,
-        naps: 0,
-        studies: 0,
         start: false,
         count: 30
+      };
+    case SAVE_GAME:
+      return { ...state, count: 30 };
+    case SET_STATE_TO_SAVED:
+      return {
+        start: action.payload.start,
+        count: action.payload.count
       };
     default:
       return state;

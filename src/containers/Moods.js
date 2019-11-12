@@ -1,21 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import moodHelperFunc from './moodHelperFunc';
-import { getCoffees, getSnacks, getNaps, getStudies } from '../selectors/moodSelectors';
 import { sendSelection } from '../actions/moodActions';
 import { startGame, decrementTimer, resetGame } from '../actions/roundActions';
+import { saveGame, setStateToSaved } from '../actions/savedGameActions';
+import { getCoffees, getSnacks, getNaps, getStudies } from '../selectors/moodSelectors';
 import { getStart, getCount } from '../selectors/roundSelectors';
+import { getSavedGamesArray } from '../selectors/SavedGamesSelectors';
+
 import Controls from '../components/controls/Controls';
 import Face from '../components/face/Face';
 import StartButton from '../components/startButton';
 import Counter from '../components/Counter/Counter';
+import SavedGamesList from '../components/SavedGames/SavedGamesList';
 
 
-const Moods = ({ state, handleSelection, handleStart, handleDecrement, handleTimeout, handleReset }) => {
+const Moods = ({ state, handleSelection, handleStart, handleDecrement, handleTimeout, handleReset, setToSavedState, handleSave }) => {
 
-  const { controlActions, face } = moodHelperFunc(state);
-
+  const { controlActions, face, saveObj } = moodHelperFunc(state);
   if(state.count === 0) {
     handleTimeout();
   }
@@ -24,6 +28,7 @@ const Moods = ({ state, handleSelection, handleStart, handleDecrement, handleTim
 
   return (
     <>
+      <SavedGamesList savedGames={state.savedGamesArray} setToSavedState={setToSavedState} handleSave={()=>handleSave(saveObj)}/>
       <Controls actions={controlActions} handleSelection={handleSelection} handleReset={handleReset}/>
       <Face emoji={face} />
       <Counter count={state.count} handleDecrement={handleDecrement}/>
@@ -39,13 +44,16 @@ Moods.propTypes = {
     naps: PropTypes.number.isRequired,
     studies: PropTypes.number.isRequired,
     start: PropTypes.bool.isRequired,
-    count: PropTypes.number.isRequired
+    count: PropTypes.number.isRequired,
+    savedGamesArray: PropTypes.array.isRequired
   }),
   handleSelection: PropTypes.func.isRequired,
   handleStart: PropTypes.func.isRequired,
   handleDecrement: PropTypes.func.isRequired,
   handleTimeout: PropTypes.func.isRequired,
   handleReset: PropTypes.func.isRequired,
+  setToSavedState: PropTypes.func.isRequired,
+  handleSave: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -55,7 +63,8 @@ const mapStateToProps = (state) => ({
     naps: getNaps(state),
     studies: getStudies(state),
     start: getStart(state),
-    count: getCount(state)
+    count: getCount(state),
+    savedGamesArray: getSavedGamesArray(state)
   }
 });
 
@@ -74,6 +83,12 @@ const mapDispatchToProps = dispatch => ({
   },
   handleReset() {
     dispatch(resetGame());
+  },
+  handleSave(savedObj) {
+    dispatch(saveGame(savedObj));
+  },
+  setToSavedState(savedState) {
+    dispatch(setStateToSaved(savedState));
   }
 });
 

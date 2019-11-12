@@ -31,7 +31,17 @@ function moodHelperFunc(state) {
     ...action,
     count: state[action.stateName]
   }));
-  return { controlActions, face };
+  const saveObj = {
+    savedState: { coffees: state.coffees,
+      snacks: state.snacks,
+      naps: state.naps,
+      studies: state.studies,
+      start: true,
+      count: state.count
+    },
+    displayFace: face
+  };
+  return { controlActions, face, saveObj };
 }
 
 

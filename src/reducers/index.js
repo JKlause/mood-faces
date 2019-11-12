@@ -1,10 +1,12 @@
 import { combineReducers } from 'redux';
 import moodReducer from './moodReducer';
 import roundReducer from './roundReducer';
+import savedGamesReducer from './savedGameReducer';
 
 const reducer = combineReducers({
   moodReducer,
-  roundReducer
+  roundReducer,
+  savedGamesReducer
 });
 
 export default reducer;
