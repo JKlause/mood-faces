@@ -1,0 +1,13 @@
+.List {
+  text-align: center;
+  font-size: 50px;
+  border: 2px solid black;
+  background-color: #666666;
+  ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+  }
+  }

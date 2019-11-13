@@ -20,14 +20,16 @@ function moodReducer(state = moodState, action) {
     case STUDY:
       return { ...state, studies: state.studies + 1 };
     case RESET:
-      return {        
+      return {    
+        ...state,    
         coffees: 0,
         snacks: 0,
         naps: 0,
         studies: 0
       };
     case SAVE_GAME:
-      return {        
+      return {       
+        ...state, 
         coffees: 0,
         snacks: 0,
         naps: 0,
@@ -35,6 +37,7 @@ function moodReducer(state = moodState, action) {
       };
     case SET_STATE_TO_SAVED:
       return { 
+        ...state,
         coffees: action.payload.coffees,
         snacks: action.payload.snacks,
         naps: action.payload.naps,

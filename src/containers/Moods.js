@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import style from './Moods.css';
 
 import moodHelperFunc from './moodHelperFunc';
 import { sendSelection } from '../actions/moodActions';
@@ -27,12 +28,16 @@ const Moods = ({ state, handleSelection, handleStart, handleDecrement, handleTim
   if(!state.start) return <StartButton handleStart={handleStart} />;
 
   return (
-    <>
-      <SavedGamesList savedGames={state.savedGamesArray} setToSavedState={setToSavedState} handleSave={()=>handleSave(saveObj)}/>
-      <Controls actions={controlActions} handleSelection={handleSelection} handleReset={handleReset}/>
-      <Face emoji={face} />
-      <Counter count={state.count} handleDecrement={handleDecrement}/>
-    </>
+    <div className={style.Moods}>
+      <div>
+        <SavedGamesList savedGames={state.savedGamesArray} setToSavedState={setToSavedState} handleSave={()=>handleSave(saveObj)}/>
+      </div>
+      <div>
+        <Controls actions={controlActions} handleSelection={handleSelection} handleReset={handleReset}/>
+        <Face emoji={face} />
+        <Counter count={state.count} handleDecrement={handleDecrement}/>
+      </div>
+    </div>
   );
 };
 

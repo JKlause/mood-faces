@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SavedGameListItem from './SavedGamesListItem';
 import SavedGamesControl from './SavedGamesController';
+import styles from './SavedGamesList.css';
 
 export default function SavedGamesList({ savedGames, setToSavedState, handleSave }) {
   const savedGamesElements = savedGames.map((savedGame, index) => (
@@ -11,12 +12,12 @@ export default function SavedGamesList({ savedGames, setToSavedState, handleSave
   ));
 
   return (
-    <>
+    <div className={styles.List}>
       <SavedGamesControl handleSave={handleSave} />
       <ul>
         {savedGamesElements}
       </ul>
-    </>
+    </div>
   );
 }
 SavedGamesList.propTypes = {

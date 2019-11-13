@@ -13,14 +13,12 @@ function roundReducer(state = roundState, action) {
     case DECREMENT:
       return { ...state, count: state.count - 1 };
     case RESET:
-      return {
-        start: false,
-        count: 30
-      };
+      return { ...state, count: 30 };
     case SAVE_GAME:
       return { ...state, count: 30 };
     case SET_STATE_TO_SAVED:
       return {
+        ...state,
         start: action.payload.start,
         count: action.payload.count
       };
