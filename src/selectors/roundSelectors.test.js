@@ -1,4 +1,4 @@
-const { getStart, getCount } = require('./roundSelectors');
+import { getStart, getCount } from './roundSelectors';
 
 describe('round selectors', () => {
   const state = {

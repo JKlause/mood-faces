@@ -1,4 +1,4 @@
-const { getSavedGamesArray } = require('./SavedGamesSelectors');
+import { getSavedGamesArray } from './SavedGamesSelectors';
 
 describe('saved games selectors', () => {
   const state = {

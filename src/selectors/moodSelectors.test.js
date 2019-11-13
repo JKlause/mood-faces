@@ -1,4 +1,4 @@
-const { getCoffees, getSnacks, getNaps, getStudies } = require('./moodSelectors');
+import { getCoffees, getSnacks, getNaps, getStudies } from './moodSelectors';
 
 describe('mood selectors', () => {
   const state = {

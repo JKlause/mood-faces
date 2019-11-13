@@ -1,4 +1,4 @@
-const { DRINK_COFFEE, EAT_SNACK, TAKE_NAP, STUDY, sendSelection } = require('./moodActions');
+import { DRINK_COFFEE, EAT_SNACK, TAKE_NAP, STUDY, sendSelection } from './moodActions';
 
 describe('mood actions ', () => {
   it('DRINK_COFFEE returns exepcted', () => {

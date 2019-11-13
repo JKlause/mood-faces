@@ -1,4 +1,4 @@
-const { SAVE_GAME, SET_STATE_TO_SAVED, saveGame, setStateToSaved } = require('./savedGameActions');
+import { SAVE_GAME, SET_STATE_TO_SAVED, saveGame, setStateToSaved } from './savedGameActions';
 
 describe('saved game actions ', () => {
   it('SAVE_GAME returns exepcted', () => {

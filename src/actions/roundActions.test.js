@@ -1,4 +1,4 @@
-const { START_GAME, DECREMENT, RESET, startGame, decrementTimer, resetGame } = require('./roundActions');
+import { START_GAME, DECREMENT, RESET, startGame, decrementTimer, resetGame } from './roundActions';
 
 describe('round actions ', () => {
   it('START_GAME returns exepcted', () => {
